@@ -1,0 +1,15 @@
+{
+    "name": "Transferwise",
+    "description": "Transferwise",
+    "authors": [
+        {
+            "name": "Le Minh Toan",
+            "email": "minhtoan.bk@gmail.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+        "php": ">=5.2.0",
+        "sergeytsalkov/meekrodb": "^2.3"
+    }
+}
