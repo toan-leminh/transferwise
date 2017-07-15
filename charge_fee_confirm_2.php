@@ -109,6 +109,7 @@ require_once 'common/config.php';
                     }
                 })
                     .done(function( response ) {
+                        console.log(response);
                         response = JSON.parse(response);
                         if(response.status.code == 0){
                             // Set result value
