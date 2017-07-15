@@ -89,18 +89,16 @@ require_once 'common/config.php';
     <!-- /.container -->
 
     <script>
+        // Initial jquery validate
         $('form').validate();
 
         $('.calculate').on('click', function () {
-            console.log($('#item_currency').val());
-            console.log($('#shipping_currency').val());
-            console.log($('#shipping_fee').val());
-
             // Validate
             if($('form').valid()){
                 var itemCurrency = $('#item_currency').val();
                 var shippingCurrency = $('#shipping_currency').val();
 
+                // Call temporary quotes API using Ajax
                 $.ajax({
                     method: "GET",
                     url: "api_temporary_quotes.php",
@@ -111,16 +109,16 @@ require_once 'common/config.php';
                     }
                 })
                     .done(function( response ) {
-                        console.log(response);
                         response = JSON.parse(response);
                         if(response.status.code == 0){
+                            // Set result value
                             $('#result_source_amount').text(response.data.sourceAmount + ' ' + itemCurrency);
                             $('#result_target_amount').text(response.data.targetAmount + ' ' + shippingCurrency);
                             $('#result_fee').text(response.data.fee + ' ' + itemCurrency);
                         }else{
+                            // Alert error message
                             alert(response.status.message);
                         }
-
                 })
                     .fail(function (response) {
                         alert('Fail to call server api')
