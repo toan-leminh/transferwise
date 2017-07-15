@@ -14,6 +14,10 @@ class ComposerStaticInit243bb5401865b50df81acda14dbcfb1f
         'MeekroDBEval' => __DIR__ . '/..' . '/sergeytsalkov/meekrodb/db.class.php',
         'MeekroDBException' => __DIR__ . '/..' . '/sergeytsalkov/meekrodb/db.class.php',
         'WhereClause' => __DIR__ . '/..' . '/sergeytsalkov/meekrodb/db.class.php',
+        'libs\\CurlApi' => __DIR__ . '/../..' . '/libs/CurlApi.php',
+        'libs\\FunctionUtil' => __DIR__ . '/../..' . '/libs/FunctionUtil.php',
+        'libs\\Log' => __DIR__ . '/../..' . '/libs/Log.php',
+        'libs\\Transferwise' => __DIR__ . '/../..' . '/libs/Transferwise.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

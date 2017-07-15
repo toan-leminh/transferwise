@@ -8,9 +8,11 @@
 
 // Debug mode
 ini_set('display_errors', 1);
-
 require_once dirname(__DIR__) . '/vendor/autoload.php';
-require_once dirname(__DIR__) . '/libs/Transferwise.php';
+
+
+define('LOG_PATH', 'logs');
+define('TRANSFERWISE_URL', 'https://test-api.transferwise.com');
 
 
 $dbConfig = [
@@ -20,14 +22,12 @@ $dbConfig = [
 ];
 
 
-
-
 //DB::$connect_options;
 DB::$user = $dbConfig['user'];
 DB::$password = $dbConfig['password'];
 DB::$dbName = $dbConfig['database'];
 
-$buyerList = DB::query("SELECT * FROM buyer_account");
-
-print_r($buyerList);
-
+//$buyerList = DB::query("SELECT * FROM buyer_account");
+//
+//print_r($buyerList);
+//

@@ -13,4 +13,8 @@ return array(
     'MeekroDBEval' => $vendorDir . '/sergeytsalkov/meekrodb/db.class.php',
     'MeekroDBException' => $vendorDir . '/sergeytsalkov/meekrodb/db.class.php',
     'WhereClause' => $vendorDir . '/sergeytsalkov/meekrodb/db.class.php',
+    'libs\\CurlApi' => $baseDir . '/libs/CurlApi.php',
+    'libs\\FunctionUtil' => $baseDir . '/libs/FunctionUtil.php',
+    'libs\\Log' => $baseDir . '/libs/Log.php',
+    'libs\\Transferwise' => $baseDir . '/libs/Transferwise.php',
 );
