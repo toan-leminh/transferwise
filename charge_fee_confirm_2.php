@@ -75,9 +75,11 @@ require_once 'common/config.php';
                             <button type="button" class="btn btn-default calculate">計算</button>
                         </div>
                         <div class="col-sm-4 pull-right">
+                            <div id="loading" style="display:none">計算中</div>
                             <p><label class="control-label" style="width: 200px">Source Amount：</label><span id="result_source_amount"></span></p>
                             <p><label class="control-label" style="width: 200px">Target Amount：</label><span id="result_target_amount"></span></p>
                             <p><label class="control-label" style="width: 200px">手数料：</label><span id="result_fee"></span></p>
+                            <p class="text-center"><span id="error_message" class="error"></span></p>
                         </div>
                     </div>
                 </form>
@@ -86,13 +88,25 @@ require_once 'common/config.php';
         <!-- /.row -->
         <?php require_once 'common/footer.php'?>
     </div>
+
+    <div class="modal"><!-- Place at bottom of page --></div>
     <!-- /.container -->
 
     <script>
         // Initial jquery validate
         $('form').validate();
 
+        // Calculate button on click event
         $('.calculate').on('click', function () {
+            calculate();
+        });
+
+        $('#item_amount, #item_currency, #shipping_fee, #shipping_currency').on('change', function () {
+            calculate();
+        });
+
+        // Calculate temporary quotation
+        function calculate() {
             // Validate
             if($('form').valid()){
                 var itemCurrency = $('#item_currency').val();
@@ -106,6 +120,13 @@ require_once 'common/config.php';
                         source: itemCurrency,
                         target: shippingCurrency,
                         amount:  parseInt($('#item_amount').val()) + parseInt($('#shipping_fee').val())
+                    },
+                    beforeSend: function( xhr ) {
+                        $("body").addClass("loading");
+                        $('#result_source_amount').text('');
+                        $('#result_target_amount').text('');
+                        $('#result_fee').text('');
+                        $('#error_message').text('');
                     }
                 })
                     .done(function( response ) {
@@ -116,18 +137,21 @@ require_once 'common/config.php';
                             $('#result_source_amount').text(response.data.sourceAmount + ' ' + itemCurrency);
                             $('#result_target_amount').text(response.data.targetAmount + ' ' + shippingCurrency);
                             $('#result_fee').text(response.data.fee + ' ' + itemCurrency);
+                            $('#error_message').text('');
                         }else{
                             // Alert error message
-                            alert(response.status.message);
+                            $('#error_message').text(response.status.message)
                         }
-                })
-                    .fail(function (response) {
-                        alert('Fail to call server api')
                     })
+                    .fail(function (response) {
+                        $('#error_message').text('Fail to call server api');
+                    })
+                    .always(function() {
+                        $("body").removeClass("loading");
+                    });
                 ;
             }
-        })
-
+        }
     </script>
 </body>
 
